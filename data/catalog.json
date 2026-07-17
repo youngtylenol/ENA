@@ -1,0 +1,164 @@
+[
+    {
+        "id": "anatomy",
+        "title": "🫀 Anatomy & Body Parts",
+        "vocabCount": 85,
+        "sentenceCount": 85
+    },
+    {
+        "id": "symptoms",
+        "title": "🤕 Symptoms & Signs",
+        "vocabCount": 50,
+        "sentenceCount": 50
+    },
+    {
+        "id": "diseases",
+        "title": "🦠 Diseases & Disorders",
+        "vocabCount": 50,
+        "sentenceCount": 50
+    },
+    {
+        "id": "procedures",
+        "title": "🩺 Clinical Procedures",
+        "vocabCount": 25,
+        "sentenceCount": 25
+    },
+    {
+        "id": "equipment",
+        "title": "🛏️ Medical Equipment",
+        "vocabCount": 25,
+        "sentenceCount": 25
+    },
+    {
+        "id": "medications",
+        "title": "💊 Medications",
+        "vocabCount": 50,
+        "sentenceCount": 50
+    },
+    {
+        "id": "vitals",
+        "title": "❤️ Vital Signs",
+        "vocabCount": 25,
+        "sentenceCount": 25
+    },
+    {
+        "id": "labs",
+        "title": "🧪 Laboratory Tests",
+        "vocabCount": 35,
+        "sentenceCount": 35
+    },
+    {
+        "id": "imaging",
+        "title": "🩻 Medical Imaging",
+        "vocabCount": 20,
+        "sentenceCount": 20
+    },
+    {
+        "id": "hospital",
+        "title": "🏥 Hospital Departments",
+        "vocabCount": 30,
+        "sentenceCount": 30
+    },
+    {
+        "id": "emergency",
+        "title": "🚑 Emergency Medicine",
+        "vocabCount": 40,
+        "sentenceCount": 40
+    },
+    {
+        "id": "documentation",
+        "title": "📝 Nursing Documentation",
+        "vocabCount": 40,
+        "sentenceCount": 40
+    },
+    {
+        "id": "patient_interview",
+        "title": "🗣️ Patient Assessment",
+        "vocabCount": 50,
+        "sentenceCount": 50
+    },
+    {
+        "id": "pharmacy",
+        "title": "💉 Pharmacy & Prescriptions",
+        "vocabCount": 35,
+        "sentenceCount": 35
+    },
+    {
+        "id": "cardiology",
+        "title": "❤️ Cardiology",
+        "vocabCount": 50,
+        "sentenceCount": 50
+    },
+    {
+        "id": "respiratory",
+        "title": "🫁 Respiratory Care",
+        "vocabCount": 40,
+        "sentenceCount": 40
+    },
+    {
+        "id": "neurology",
+        "title": "🧠 Neurology",
+        "vocabCount": 35,
+        "sentenceCount": 35
+    },
+    {
+        "id": "gastroenterology",
+        "title": "🍽️ Gastroenterology",
+        "vocabCount": 35,
+        "sentenceCount": 35
+    },
+    {
+        "id": "orthopedics",
+        "title": "🦴 Orthopedics",
+        "vocabCount": 35,
+        "sentenceCount": 35
+    },
+    {
+        "id": "obgyn",
+        "title": "🤰 Obstetrics & Gynecology",
+        "vocabCount": 35,
+        "sentenceCount": 35
+    },
+    {
+        "id": "pediatrics",
+        "title": "👶 Pediatrics",
+        "vocabCount": 30,
+        "sentenceCount": 30
+    },
+    {
+        "id": "mental_health",
+        "title": "🧠 Mental Health",
+        "vocabCount": 30,
+        "sentenceCount": 30
+    },
+    {
+        "id": "insurance",
+        "title": "📄 Insurance & Billing",
+        "vocabCount": 35,
+        "sentenceCount": 35
+    },
+    {
+        "id": "military",
+        "title": "🪖 TRICARE & Military",
+        "vocabCount": 40,
+        "sentenceCount": 40
+    },
+    {
+        "id": "telephone",
+        "title": "☎️ Telephone English",
+        "vocabCount": 40,
+        "sentenceCount": 40
+    },
+    {
+        "id": "reports",
+        "title": "📋 Medical Reports",
+        "vocabCount": 40,
+        "sentenceCount": 40
+    },
+    {
+        "id": "abbreviations",
+        "title": "📚 Medical Abbreviations",
+        "vocabCount": 100,
+        "sentenceCount": 100
+    }
+]
