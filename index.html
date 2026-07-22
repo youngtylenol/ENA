@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Clinical English - Ranked</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        /* CSS Variables for Light/Dark Mode */
+        :root { 
+            --primary: #3182ce; --primary-hover: #2b6cb0; --secondary: #805ad5; 
+            --success: #38a169; --danger: #e53e3e; --warning: #d69e2e; 
+            
+            /* Light Theme Defaults */
+            --bg: #f0f4f8; --text: #2d3748; 
+            --card-bg: white; --card-border: #cbd5e0;
+            --section-bg: #f8fafc; --level-bg: white;
+            --btn-lvl-bg: #edf2f7; --btn-lvl-text: #4a5568; --btn-lvl-hover: #e2e8f0;
+            --hint-text: #718096; --input-bg: white; --input-text: #2d3748;
+        }
+
+        /* Dark Theme Overrides */
+        body.dark-mode {
+            --bg: #0f1923; --text: #e2e8f0;
+            --card-bg: #1f2933; --card-border: #3e4c59;
+            --section-bg: #1a202c; --level-bg: #1f2933;
+            --btn-lvl-bg: #3e4c59; --btn-lvl-text: #e2e8f0; --btn-lvl-hover: #718096;
+            --hint-text: #a0aec0; --input-bg: #1a202c; --input-text: #e2e8f0;
+        }
+
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: var(--bg); color: var(--text); text-align: center; margin: 0; padding: 20px; transition: background-color 0.3s, color 0.3s; }
+        
+        .header-container { display: flex; justify-content: space-between; align-items: flex-start; max-width: 800px; margin: 0 auto; }
+        .title-area { text-align: left; }
+        h1 { margin-bottom: 5px; color: var(--primary); }
+        .subtitle { color: var(--hint-text); margin-top: 0; margin-bottom: 20px; }
+        
+        #theme-toggle { background: var(--card-bg); color: var(--text); border: 2px solid var(--card-border); padding: 8px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        #theme-toggle:hover { border-color: var(--primary); }
+
+        .container { max-width: 800px; margin: 0 auto; background: var(--card-bg); padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid var(--card-border); transition: 0.3s;}
+        
+        /* Rank Display */
+        .rank-banner { background: #1a202c; color: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2);}
+        .rank-title { font-size: 24px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px;}
+        .rank-rr { font-size: 20px; font-weight: bold; color: #a0aec0;}
+        .rr-bar-track { width: 160px; height: 8px; background: rgba(255,255,255,0.15); border-radius: 4px; overflow: hidden; margin-top: 6px; }
+        .rr-bar-fill { height: 100%; background: linear-gradient(90deg, #3182ce, #63b3ed); border-radius: 4px; transition: width 0.3s; }
+        .promotion-banner { display: none; background: linear-gradient(90deg, #eab308, #f59e0b); color: #422006; font-weight: 900; padding: 12px; border-radius: 8px; margin-bottom: 15px; text-align: center; font-size: 16px; letter-spacing: 0.5px; }
+        
+        /* Dashboard & Levels */
+        .grid-container { display: grid; grid-template-columns: 1fr; gap: 20px; text-align: left; }
+        .section-card { background-color: var(--section-bg); border: 1px solid var(--card-border); padding: 20px; border-radius: 10px; transition: 0.3s;}
+        
+        .section-header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 2px solid var(--card-border); padding-bottom: 8px; }
+        .section-title { font-size: 22px; font-weight: bold; color: var(--text); }
+        .max-streak-badge { font-size: 14px; font-weight: bold; color: var(--warning); background: rgba(214, 158, 46, 0.1); padding: 4px 10px; border-radius: 12px; border: 1px solid var(--warning); }
+        
+        .level-group { margin-bottom: 15px; background: var(--level-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--card-border); transition: 0.3s;}
+        .level-title { font-weight: bold; color: var(--text); margin-bottom: 10px; display: block; font-size: 16px;}
+        .level-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+        
+        button { border: none; border-radius: 6px; cursor: pointer; transition: 0.2s; font-weight: bold; }
+        .btn-lvl { background-color: var(--btn-lvl-bg); color: var(--btn-lvl-text); padding: 10px 15px; flex-grow: 1; font-size: 14px;}
+        .btn-lvl:hover:not(:disabled) { background-color: var(--btn-lvl-hover); }
+        .btn-lvl:disabled { opacity: 0.5; cursor: not-allowed; }
+        
+        .btn-mastery { background-color: var(--primary); color: white; padding: 10px 15px; flex-grow: 2; font-size: 14px;}
+        .btn-mastery:hover:not(:disabled) { background-color: var(--primary-hover); }
+        .btn-mastery:disabled { background-color: var(--btn-lvl-bg); color: var(--hint-text); cursor: not-allowed; opacity: 0.7;}
+        
+        .btn-lvl.completed { background-color: #fef08a; color: #854d0e; border: 1px solid #eab308; }
+        .btn-mastery.completed { background-color: #eab308; color: white; box-shadow: 0 0 10px rgba(234, 179, 8, 0.5); }
+        
+        /* Study UI */
+        #study-section { display: none; }
+        .card { background-color: var(--card-bg); border: 2px solid var(--card-border); border-radius: 15px; padding: 40px 20px; margin: 20px 0; transition: 0.3s;}
+        .prompt-text { font-size: 28px; font-weight: bold; margin-bottom: 15px; color: var(--text); }
+        .hint-toggle { background: none; border: none; color: var(--primary); font-size: 16px; cursor: pointer; text-decoration: underline; margin-bottom: 15px; display: none; padding: 0; }
+        .hint-text { font-size: 18px; color: var(--hint-text); margin-bottom: 25px; display: none; font-weight: 500; }
+        
+        input[type="text"] { font-size: 24px; padding: 15px; width: 85%; max-width: 400px; text-align: center; border: 3px solid var(--primary); border-radius: 8px; outline: none; font-weight: bold; background-color: var(--input-bg); color: var(--input-text); transition: 0.2s;}
+        
+        .correct-flash { background-color: #c6f6d5 !important; border-color: #38a169 !important; color: #22543d !important; }
+        .incorrect-flash { background-color: #fed7d7 !important; border-color: #e53e3e !important; color: #742a2a !important; }
+        
+        .btn-submit { background-color: var(--success); font-size: 18px; padding: 12px 30px; color: white; margin: 15px auto 0; display: block; }
+        .btn-next { background-color: var(--warning); font-size: 18px; padding: 12px 30px; color: white; margin: 15px auto 0; display: none; }
+        .btn-secondary { background-color: var(--hint-text); padding: 10px 20px; color: white; margin: 30px auto 0; display: block;}
+        
+        #feedback-area { min-height: 40px; margin-top: 15px; font-size: 22px; font-weight: bold; color: var(--text); }
+        .status-bar { display: flex; justify-content: space-between; align-items: center; font-size: 16px; color: var(--hint-text); font-weight: bold; margin-bottom: 10px;}
+        #streak-display { font-size: 20px; color: var(--warning); font-weight: 900; opacity: 0; transition: 0.3s; }
+        .streak-active { opacity: 1 !important; transform: scale(1.1); }
+        
+        /* Post-Match Report UI */
+        #report-section { display: none; background: #0f1923; color: white; padding: 30px; border-radius: 12px; }
+        .report-header { font-size: 32px; font-weight: 900; letter-spacing: 2px; border-bottom: 2px solid #ff4655; padding-bottom: 10px; margin-bottom: 20px; transition: 0.3s;}
+        
+        .perfect-tracker { background: #2b6cb0; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-size: 20px; font-weight: bold; display: flex; justify-content: space-between; align-items: center;}
+        
+        .report-stats { display: flex; justify-content: space-around; background: #1f2933; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .stat-box { display: flex; flex-direction: column; align-items: center;}
+        .stat-label { font-size: 14px; color: #9aa4af; text-transform: uppercase; margin-bottom: 5px; font-weight: bold;}
+        .stat-value { font-size: 28px; font-weight: 900; }
+        .rr-gain { color: #10b981; } .rr-loss { color: #ef4444; }
+        
+        .word-list-container { display: flex; justify-content: space-between; gap: 20px; text-align: left; flex-wrap: wrap;}
+        .word-column { flex: 1; min-width: 200px; background: #1f2933; padding: 15px; border-radius: 8px;}
+        .word-column h3 { margin-top: 0; font-size: 16px; border-bottom: 1px solid #3e4c59; padding-bottom: 5px;}
+        .one-tap { color: #10b981; margin-bottom: 5px; font-weight: bold;}
+        .missed-tap { color: #ef4444; margin-bottom: 5px; font-weight: bold;}
+        
+        .btn-continue { background-color: var(--primary); color: white; padding: 15px 30px; font-size: 18px; margin-top: 25px; width: 100%; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px;}
+        .btn-continue:hover { background-color: var(--primary-hover); }
+        
+        #loading-spinner { display: none; font-size: 18px; color: var(--primary); font-weight: bold; margin: 20px 0; }
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <div class="title-area">
+            <h1>🩺 Pro Clinical English</h1>
+            <p class="subtitle">Ranked Matchmaking System</p>
+        </div>
+        <button id="theme-toggle" onclick="toggleTheme()">🌙 Dark Mode</button>
+    </div>
+
+    <div class="container">
+        <div id="loading-spinner">Loading Match Data...</div>
+
+        <!-- Dashboard -->
+        <div id="dashboard">
+            <div class="rank-banner">
+                <div>
+                    <div style="font-size: 14px; color: #a0aec0; text-transform: uppercase; font-weight: bold;">Current Rank</div>
+                    <div class="rank-title" id="dash-rank-name">Copper I</div>
+                </div>
+                <div style="text-align: right;">
+                    <div class="rank-rr" id="dash-rank-rr">0 / 100 RR</div>
+                    <div class="rr-bar-track"><div class="rr-bar-fill" id="dash-rr-bar" style="width:0%;"></div></div>
+                </div>
+            </div>
+            
+            <div class="grid-container" id="sections-container"></div>
+            
+            <!-- Data Management & Reset -->
+            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 30px;">
+                <button class="btn-secondary" style="margin: 0; background-color: var(--primary);" onclick="exportProgress()">💾 Export Save</button>
+                <button class="btn-secondary" style="margin: 0; background-color: var(--warning);" onclick="document.getElementById('import-file').click()">📂 Import Save</button>
+                <button class="btn-secondary" style="background-color: var(--danger); margin: 0;" onclick="resetProgress()">⚠️ Reset All Progress</button>
+                <input type="file" id="import-file" accept=".json" style="display: none;" onchange="importProgress(event)">
+            </div>
+        </div>
+
+        <!-- Study Interface -->
+        <div id="study-section">
+            <div class="status-bar">
+                <span id="mode-badge">Level 1</span>
+                <span id="streak-display">🔥 <span id="streak-count">0</span> Combo!</span>
+                <span id="queue-counter">Card: 1 / 10</span>
+            </div>
+            <div style="text-align:left; font-size: 13px; color: var(--hint-text); margin-bottom: 10px; font-weight: 600;" id="composition-subtitle"></div>
+            
+            <div class="card">
+                <div class="prompt-text" id="prompt-text"></div>
+                <button class="hint-toggle" id="hint-toggle-btn" onclick="toggleHint()">👁️ Show Japanese Translation</button>
+                <div class="hint-text" id="hint-text"></div>
+                <input type="text" id="answer-input" placeholder="Type English or press Enter to skip..." autocomplete="off">
+            </div>
+            
+            <button class="btn-submit" id="submit-btn" onclick="checkAnswer()">Submit</button>
+            <button class="btn-next" id="next-btn" onclick="nextCard()">Press Enter to continue</button>
+            <div id="feedback-area"></div>
+            <button class="btn-secondary" onclick="returnToMenu()">Forfeit Match (Quit)</button>
+        </div>
+
+        <!-- Post-Match Report -->
+        <div id="report-section">
+            <div class="report-header" id="report-header-text">MATCH REPORT</div>
+            <div class="promotion-banner" id="promotion-banner"></div>
+            
+            <div class="perfect-tracker" id="perfect-tracker">
+                <span>Level Mastery Progress:</span>
+                <span id="tracker-score" style="color: #fef08a;">0 / 1 Perfects</span>
+            </div>
+            
+            <div class="report-stats">
+                <div class="stat-box">
+                    <span class="stat-label">Rank</span>
+                    <span class="stat-value" id="report-rank-name" style="color: #00ced1;">Platinum</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Rating Change</span>
+                    <span class="stat-value" id="report-rr-change">+20 RR</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Accuracy</span>
+                    <span class="stat-value" id="report-accuracy">100%</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Time</span>
+                    <span class="stat-value" id="report-time">1:12</span>
+                </div>
+            </div>
+
+            <div class="word-list-container">
+                <div class="word-column">
+                    <h3>✅ Correct (First Try)</h3>
+                    <div id="list-correct"></div>
+                </div>
+                <div class="word-column">
+                    <h3>❌ Needed Review</h3>
+                    <div id="list-incorrect"></div>
+                </div>
+            </div>
+
+            <button class="btn-continue" onclick="returnToMenu()">Continue</button>
+        </div>
+    </div>
+
+    <script>
+        const CHUNK_SIZE = 10;          // New words introduced per level
+        const REVIEW_INCREMENT = 5;     // Extra review cards added per level beyond level 1
+        const REQUIRED_STREAKS = 1;     // Changed from 3 to 1
+        
+        // Ranks System — 10 tiers x 5 divisions x 100 RR = 500 RR per tier
+        const RANKS = [
+            { name: 'Copper', color: '#b87333' },
+            { name: 'Iron', color: '#a19d94' },
+            { name: 'Bronze', color: '#cd7f32' },
+            { name: 'Silver', color: '#c0c0c0' },
+            { name: 'Gold', color: '#ffd700' },
+            { name: 'Platinum', color: '#00ced1' },
+            { name: 'Diamond', color: '#b9f2ff' },
+            { name: 'Ascendant', color: '#2e8b57' },
+            { name: 'Immortal', color: '#dc143c' },
+            { name: 'Radiant', color: '#ffffe0' }
+        ];
+        const TIER_SPAN = 500; // 5 divisions * 100 RR
+        const DIVISION_LABELS = ['I', 'II', 'III', 'IV', 'V'];
+
+        let playerRR = parseInt(localStorage.getItem('clinicalRRv2')) || 0;
+        
+        let catalog = [];
+        let currentModuleData = null;
+        let queue = [];
+        let currentItem = null;
+        
+        let currentModuleId = '';
+        let currentMode = ''; 
+        let currentLevel = ''; 
+        
+        let inGameStreak = 0;
+        let isWaitingForNextCard = false; 
+        
+        // Match Tracking Variables
+        let matchStartTime = 0;
+        let totalUniqueCards = 0; 
+        let cardsResolved = 0; // Number of cards permanently removed from queue
+        let sessionMisses = 0; // Total mistakes made
+        let sessionCorrect = [];
+        let sessionIncorrect = [];
+        let isPerfectSession = true;
+        
+        let progressData = JSON.parse(localStorage.getItem('clinicalProgressV12')) || {};
+
+        function shuffleArray(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        // Theme Setup
+        const savedTheme = localStorage.getItem('clinicalTheme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('theme-toggle').innerText = '☀️ Light Mode';
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const btn = document.getElementById('theme-toggle');
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('clinicalTheme', 'dark');
+                btn.innerText = '☀️ Light Mode';
+            } else {
+                localStorage.setItem('clinicalTheme', 'light');
+                btn.innerText = '🌙 Dark Mode';
+            }
+        }
+
+        // Computes {tier, tierIndex, divisionLabel, divisionIndex, rrInDivision} from a single
+        // monotonic RR total. Divisions/tiers fall out of this automatically, so promotion AND
+        // demotion just happen naturally as totalRR crosses 100-point boundaries.
+        function getRankInfo(totalRR) {
+            totalRR = Math.max(0, totalRR);
+            let tierIndex = Math.floor(totalRR / TIER_SPAN);
+            if (tierIndex >= RANKS.length) tierIndex = RANKS.length - 1; // Radiant caps the tier list
+            const within = totalRR - (tierIndex * TIER_SPAN);
+            let divisionIndex = Math.floor(within / 100);
+            if (divisionIndex > 4) divisionIndex = 4; // stay in Division V once maxed (esp. at Radiant)
+            const rrInDivision = Math.min(100, within - (divisionIndex * 100));
+            return {
+                tier: RANKS[tierIndex],
+                tierIndex,
+                divisionLabel: DIVISION_LABELS[divisionIndex],
+                divisionIndex,
+                rrInDivision
+            };
+        }
+
+        function updateRankUI() {
+            const info = getRankInfo(playerRR);
+            document.getElementById('dash-rank-name').innerText = `${info.tier.name} ${info.divisionLabel}`;
+            document.getElementById('dash-rank-name').style.color = info.tier.color;
+            document.getElementById('dash-rank-rr').innerText = `${info.rrInDivision} / 100 RR`;
+            document.getElementById('dash-rr-bar').style.width = `${info.rrInDivision}%`;
+            localStorage.setItem('clinicalRRv2', playerRR);
+        }
+
+        async function initApp() {
+            document.getElementById('loading-spinner').style.display = 'block';
+            updateRankUI();
+            try {
+                const response = await fetch('data/catalog.json');
+                catalog = await response.json();
+                
+                catalog.forEach(mod => {
+                    if (!progressData[mod.id]) {
+                        progressData[mod.id] = {
+                            maxStreak: 0,
+                            vocab: { unlockedLevel: 1, streaks: {}, completed: {} },
+                            sentences: { unlockedLevel: 1, streaks: {}, completed: {} }
+                        };
+                    }
+                });
+                saveProgress();
+                renderDashboard();
+            } catch (error) {
+                document.getElementById('sections-container').innerHTML = `<p style="color:red">Error loading catalog. Must run on a web server or GitHub Pages.</p>`;
+            }
+            document.getElementById('loading-spinner').style.display = 'none';
+        }
+
+        function renderDashboard() {
+            const container = document.getElementById('sections-container');
+            container.innerHTML = '';
+
+            catalog.forEach(mod => {
+                const p = progressData[mod.id];
+                
+                const renderLevelGroup = (title, modeKey, totalCount) => {
+                    const numLevels = Math.ceil(totalCount / CHUNK_SIZE) || 1;
+                    let buttonsHtml = '';
+                    let allLevelsBeaten = true;
+                    const unlockedLevel = p[modeKey].unlockedLevel;
+                    
+                    for (let i = 1; i <= numLevels; i++) {
+                        const isCompleted = p[modeKey].completed[i] ? 'completed' : '';
+                        if (!p[modeKey].completed[i]) allLevelsBeaten = false; 
+                        
+                        if (i > unlockedLevel) {
+                            buttonsHtml += `<button class="btn-lvl" disabled>🔒 Lvl ${i}</button>`;
+                        } else {
+                            buttonsHtml += `<button class="btn-lvl ${isCompleted}" onclick="startStudy('${mod.id}', '${modeKey}', ${i})">Level ${i}</button>`;
+                        }
+                    }
+                    
+                    const masteryCompleted = p[modeKey].completed['mastery'] ? 'completed' : '';
+                    if (allLevelsBeaten) {
+                        buttonsHtml += `<button class="btn-mastery ${masteryCompleted}" onclick="startStudy('${mod.id}', '${modeKey}', 'mastery')">⭐ Mastery Test</button>`;
+                    } else {
+                        buttonsHtml += `<button class="btn-mastery" disabled>🔒 Mastery Locked</button>`;
+                    }
+
+                    return `
+                        <div class="level-group">
+                            <span class="level-title">${title}</span>
+                            <div class="level-buttons">${buttonsHtml}</div>
+                        </div>
+                    `;
+                };
+
+                container.innerHTML += `
+                    <div class="section-card">
+                        <div class="section-header-flex">
+                            <div class="section-title" style="margin:0; border:none; padding:0;">${mod.title}</div>
+                            <div class="max-streak-badge">🏆 Max Streak: ${p.maxStreak || 0}</div>
+                        </div>
+                        ${renderLevelGroup('📖 Vocabulary Training', 'vocab', mod.vocabCount)}
+                        ${renderLevelGroup('💬 Clinical Scenarios', 'sentences', mod.sentenceCount)}
+                    </div>
+                `;
+            });
+        }
+
+        async function startStudy(moduleId, mode, level) {
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('loading-spinner').style.display = 'block';
+            
+            try {
+                const response = await fetch(`data/${moduleId}.json`);
+                currentModuleData = await response.json();
+                
+                currentModuleId = moduleId;
+                currentMode = mode;
+                currentLevel = level;
+                
+                // Reset in-game combo counter for this specific session/level
+                inGameStreak = 0;
+                updateStreakUI();
+                sessionCorrect = [];
+                sessionIncorrect = [];
+                sessionMisses = 0;
+                cardsResolved = 0;
+                isPerfectSession = true;
+                matchStartTime = Date.now();
+                
+                const allItems = mode === 'vocab' ? currentModuleData.vocab : currentModuleData.sentences;
+                let pool = [];
+                let reviewCount = 0;
+                let newCount = 0;
+
+                if (level === 'mastery') {
+                    pool = [...allItems];
+                } else {
+                    const startIndex = (level - 1) * CHUNK_SIZE;
+                    const endIndex = startIndex + CHUNK_SIZE;
+                    const newWords = allItems.slice(startIndex, endIndex);
+                    newCount = newWords.length;
+
+                    // Review pool grows by REVIEW_INCREMENT per level, drawn randomly from
+                    // everything covered in earlier levels — this is what mixes old + new
+                    // instead of quizzing only the current level's fresh words.
+                    const reviewSource = allItems.slice(0, startIndex);
+                    reviewCount = Math.min(REVIEW_INCREMENT * (level - 1), reviewSource.length);
+                    const reviewWords = shuffleArray([...reviewSource]).slice(0, reviewCount);
+
+                    pool = [...newWords, ...reviewWords];
+                }
+
+                if (pool.length === 0) {
+                    alert("No data found.");
+                    returnToMenu();
+                    return;
+                }
+
+                queue = pool.map(item => ({ ...item, missed: false }));
+                queue.sort(() => Math.random() - 0.5); 
+                totalUniqueCards = queue.length;
+                
+                document.getElementById('loading-spinner').style.display = 'none';
+                document.getElementById('study-section').style.display = 'block';
+                
+                const lvlText = level === 'mastery' ? 'Mastery Test' : `Level ${level}`;
+                const modeText = mode === 'vocab' ? 'Vocab' : 'Scenarios';
+                document.getElementById('mode-badge').innerText = `${lvlText} (${modeText})`;
+
+                const compositionEl = document.getElementById('composition-subtitle');
+                if (level === 'mastery') {
+                    compositionEl.innerText = `⭐ ${totalUniqueCards} cards — everything in this module`;
+                } else if (reviewCount > 0) {
+                    compositionEl.innerText = `${newCount} new + ${reviewCount} review = ${totalUniqueCards} cards`;
+                } else {
+                    compositionEl.innerText = `${totalUniqueCards} new cards`;
+                }
+                
+                loadCard();
+            } catch (error) {
+                alert("Failed to load data.");
+                returnToMenu();
+            }
+        }
+
+        function loadCard() {
+            if (queue.length === 0) { showReport(); return; }
+            
+            isWaitingForNextCard = false; 
+            currentItem = queue[0]; // Look at top card, do NOT remove yet
+            
+            document.getElementById('queue-counter').innerText = `Card: ${cardsResolved + 1} / ${totalUniqueCards}`;
+            
+            const hintToggleBtn = document.getElementById('hint-toggle-btn');
+            const hintTextEl = document.getElementById('hint-text');
+
+            if (currentMode === 'vocab') {
+                document.getElementById('prompt-text').innerText = currentItem.jp;
+                hintToggleBtn.style.display = 'none';
+                hintTextEl.style.display = 'none';
+            } else {
+                document.getElementById('prompt-text').innerHTML = currentItem.en.replace('_____', '<strong>_____</strong>');
+                hintTextEl.innerHTML = currentItem.jp.replace('_____', '<strong>_____</strong>');
+                hintTextEl.style.display = 'none'; 
+                hintToggleBtn.style.display = 'inline-block';
+                hintToggleBtn.innerText = "👁️ Show Japanese Translation";
+            }
+            
+            const input = document.getElementById('answer-input');
+            input.value = ''; input.disabled = false; input.className = ''; 
+            input.placeholder = "Type English or press Enter to skip...";
+            input.focus();
+            
+            document.getElementById('feedback-area').innerHTML = '';
+            document.getElementById('submit-btn').style.display = 'block';
+            document.getElementById('next-btn').style.display = 'none';
+        }
+
+        function toggleHint() {
+            const hintEl = document.getElementById('hint-text');
+            const toggleBtn = document.getElementById('hint-toggle-btn');
+            if (hintEl.style.display === 'none') {
+                hintEl.style.display = 'block';
+                toggleBtn.innerText = "🙈 Hide Japanese Translation";
+            } else {
+                hintEl.style.display = 'none';
+                toggleBtn.innerText = "👁️ Show Japanese Translation";
+            }
+        }
+
+        function updateStreakUI() {
+            const streakDisplay = document.getElementById('streak-display');
+            document.getElementById('streak-count').innerText = inGameStreak;
+            inGameStreak >= 3 ? streakDisplay.classList.add('streak-active') : streakDisplay.classList.remove('streak-active');
+            
+            // Update the category's overall max streak if the current combo surpasses it
+            if (inGameStreak > (progressData[currentModuleId].maxStreak || 0)) {
+                progressData[currentModuleId].maxStreak = inGameStreak;
+            }
+            saveProgress();
+        }
+
+        function checkAnswer() {
+            const input = document.getElementById('answer-input');
+            const userInput = input.value.trim().toLowerCase();
+            const correctAnswer = (currentMode === 'vocab' ? currentItem.en : currentItem.answer).toLowerCase();
+            const feedbackBox = document.getElementById('feedback-area');
+            
+            input.disabled = true;
+            document.getElementById('submit-btn').style.display = 'none';
+
+            if (userInput === '' || userInput !== correctAnswer) {
+                // Incorrect - Goes to back of queue
+                inGameStreak = 0; updateStreakUI();
+                isPerfectSession = false;
+                sessionMisses++;
+                
+                input.value = correctAnswer; 
+                input.classList.add('incorrect-flash');
+                
+                feedbackBox.innerHTML = `❌ Incorrect`;
+                
+                if (!currentItem.missed) {
+                    currentItem.missed = true;
+                    sessionIncorrect.push(correctAnswer);
+                }
+                
+                queue.push(queue.shift()); // Move to back of line!
+                
+                isWaitingForNextCard = true; 
+                document.getElementById('next-btn').style.display = 'block'; 
+                
+            } else {
+                // Correct - Removed from queue permanently
+                inGameStreak++; updateStreakUI();
+                cardsResolved++;
+                
+                input.classList.add('correct-flash');
+                feedbackBox.innerHTML = `✅ Correct!`;
+                
+                if (!currentItem.missed) {
+                    sessionCorrect.push(correctAnswer);
+                }
+                
+                queue.shift(); // Remove entirely from run
+                
+                // FIX: No more setTimeout. Now it waits for Enter/Click.
+                isWaitingForNextCard = true;
+                document.getElementById('next-btn').style.display = 'block';
+            }
+        }
+        
+        function nextCard() {
+            if(isWaitingForNextCard) { loadCard(); }
+        }
+
+        function showReport() {
+            document.getElementById('study-section').style.display = 'none';
+            document.getElementById('report-section').style.display = 'block';
+            
+            const timeDiff = Math.floor((Date.now() - matchStartTime) / 1000);
+            const mins = Math.floor(timeDiff / 60);
+            const secs = timeDiff % 60;
+            document.getElementById('report-time').innerText = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+            
+            // Accuracy based on total attempts
+            const totalAttempts = totalUniqueCards + sessionMisses;
+            const accuracy = Math.round((totalUniqueCards / totalAttempts) * 100);
+            document.getElementById('report-accuracy').innerText = `${accuracy}%`;
+            
+            // RR Logic
+            let rrGain = 0;
+            if (accuracy >= 90) rrGain = 30;
+            else if (accuracy >= 80) rrGain = 20;
+            else if (accuracy >= 70) rrGain = 10;
+            else { rrGain = -15; }
+
+            const oldInfo = getRankInfo(playerRR); // snapshot before this session's changes
+            playerRR = Math.max(0, playerRR + rrGain);
+
+            // PROGRESSION LOGIC
+            const p = progressData[currentModuleId][currentMode];
+            if (!p.streaks[currentLevel]) p.streaks[currentLevel] = 0;
+            const alreadyCompletedBefore = !!p.completed[currentLevel];
+            
+            const headerEl = document.getElementById('report-header-text');
+            const trackerEl = document.getElementById('tracker-score');
+            
+            if (accuracy >= 70) {
+                headerEl.innerText = "VICTORY";
+                headerEl.style.color = "#10b981";
+                headerEl.style.borderBottomColor = "#10b981";
+            } else {
+                headerEl.innerText = "DEFEAT (< 70% ACCURACY)";
+                headerEl.style.color = "#ef4444";
+                headerEl.style.borderBottomColor = "#ef4444";
+            }
+            
+            // Handle the 1-Peat Perfect Requirement
+            if (isPerfectSession) {
+                p.streaks[currentLevel]++;
+            } else {
+                p.streaks[currentLevel] = 0; // Miss 1 word, lose the streak!
+            }
+            
+            let justBeatLevel = false;
+            if (p.streaks[currentLevel] >= REQUIRED_STREAKS) {
+                trackerEl.innerText = `LEVEL BEATEN! 🎉`;
+                trackerEl.style.color = "#10b981";
+                p.completed[currentLevel] = true;
+                
+                // Unlock next level if not playing mastery
+                if (currentLevel !== 'mastery') {
+                    p.unlockedLevel = Math.max(p.unlockedLevel, currentLevel + 1);
+                }
+                confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+
+                if (!alreadyCompletedBefore) justBeatLevel = true;
+            } else {
+                trackerEl.innerText = `${p.streaks[currentLevel]} / ${REQUIRED_STREAKS} Perfects`;
+                trackerEl.style.color = isPerfectSession ? "#fef08a" : "#ef4444";
+            }
+
+            // Insta-promotion: beating a level (for the first time) jumps you straight to the
+            // next division boundary, on top of the RR you already earned this session.
+            if (justBeatLevel) {
+                playerRR = (Math.floor(playerRR / 100) + 1) * 100;
+            }
+
+            updateRankUI();
+            const newInfo = getRankInfo(playerRR);
+            
+            const rrEl = document.getElementById('report-rr-change');
+            rrEl.innerText = rrGain > 0 ? `+${rrGain} RR` : `${rrGain} RR`;
+            rrEl.className = `stat-value ${rrGain > 0 ? 'rr-gain' : 'rr-loss'}`;
+            
+            const rankEl = document.getElementById('report-rank-name');
+            rankEl.innerText = `${newInfo.tier.name} ${newInfo.divisionLabel}`;
+            rankEl.style.color = newInfo.tier.color;
+
+            // Promotion / demotion callout
+            const promoEl = document.getElementById('promotion-banner');
+            const rankMoved = newInfo.tierIndex !== oldInfo.tierIndex || newInfo.divisionIndex !== oldInfo.divisionIndex;
+            const wentUp = (newInfo.tierIndex > oldInfo.tierIndex) ||
+                           (newInfo.tierIndex === oldInfo.tierIndex && newInfo.divisionIndex > oldInfo.divisionIndex);
+            if (justBeatLevel) {
+                promoEl.style.display = 'block';
+                promoEl.innerText = `⬆️ INSTANT PROMOTION → ${newInfo.tier.name} ${newInfo.divisionLabel}!`;
+            } else if (rankMoved) {
+                promoEl.style.display = 'block';
+                promoEl.innerText = wentUp
+                    ? `⬆️ Promoted to ${newInfo.tier.name} ${newInfo.divisionLabel}!`
+                    : `⬇️ Demoted to ${newInfo.tier.name} ${newInfo.divisionLabel}`;
+            } else {
+                promoEl.style.display = 'none';
+            }
+            
+            saveProgress();
+
+            const uniqueCorrect = [...new Set(sessionCorrect)];
+            const uniqueIncorrect = [...new Set(sessionIncorrect)];
+            
+            const correctHtml = uniqueCorrect.map(word => `<div class="one-tap">${word}</div>`).join('');
+            const incorrectHtml = uniqueIncorrect.map(word => `<div class="missed-tap">${word}</div>`).join('');
+            
+            document.getElementById('list-correct').innerHTML = correctHtml || '<div style="color:#718096; font-size:14px;">None</div>';
+            document.getElementById('list-incorrect').innerHTML = incorrectHtml || '<div style="color:#718096; font-size:14px;">Perfect Game!</div>';
+        }
+
+        function returnToMenu() {
+            document.getElementById('report-section').style.display = 'none';
+            document.getElementById('study-section').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            renderDashboard(); 
+        }
+
+        function saveProgress() { localStorage.setItem('clinicalProgressV12', JSON.stringify(progressData)); }
+        
+        function resetProgress() {
+            if(confirm("Are you sure you want to reset all your medals, unlocks, and your Rank?")) {
+                localStorage.removeItem('clinicalProgressV12');
+                localStorage.removeItem('clinicalRRv2');
+                progressData = {};
+                playerRR = 0;
+                initApp();
+            }
+        }
+
+        function exportProgress() {
+            const saveData = {
+                progress: progressData,
+                rr: playerRR,
+                theme: localStorage.getItem('clinicalTheme') || 'light'
+            };
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(saveData));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            const date = new Date().toISOString().split('T')[0];
+            downloadAnchorNode.setAttribute("download", `clinical_english_save_${date}.json`);
+            document.body.appendChild(downloadAnchorNode);
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+        }
+
+        function importProgress(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const saveData = JSON.parse(e.target.result);
+                    if (saveData.progress && saveData.rr !== undefined) {
+                        localStorage.setItem('clinicalProgressV12', JSON.stringify(saveData.progress));
+                        localStorage.setItem('clinicalRRv2', saveData.rr);
+                        if (saveData.theme) localStorage.setItem('clinicalTheme', saveData.theme);
+                        
+                        alert("Progress imported successfully! Reloading...");
+                        location.reload(); 
+                    } else {
+                        alert("Invalid save file format.");
+                    }
+                } catch (err) {
+                    alert("Error reading file.");
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        window.addEventListener('keypress', (e) => { 
+            if (e.key === 'Enter' && document.getElementById('study-section').style.display === 'block') {
+                if (isWaitingForNextCard) {
+                    nextCard(); 
+                } else if (!document.getElementById('answer-input').disabled) {
+                    checkAnswer(); 
+                }
+            }
+        });
+
+        initApp();
+    </script>
+</body>
+</html>

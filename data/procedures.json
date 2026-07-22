@@ -1,0 +1,38 @@
+{
+  "vocab": [
+    { "jp": "点滴", "en": "iv" }, { "jp": "採血", "en": "blood draw" }, { "jp": "心肺蘇生法", "en": "cpr" }, { "jp": "手術", "en": "surgery" },
+    { "jp": "生検 (細胞を取って調べること)", "en": "biopsy" }, { "jp": "透析", "en": "dialysis" }, { "jp": "挿管 (管を入れること)", "en": "intubation" },
+    { "jp": "輸血", "en": "blood transfusion" }, { "jp": "創傷ケア / 傷の手当て", "en": "wound care" }, { "jp": "除細動 (電気ショック)", "en": "defibrillation" },
+    { "jp": "注射", "en": "injection" }, { "jp": "予防接種 / ワクチン", "en": "vaccination" }, { "jp": "麻酔", "en": "anesthesia" }, { "jp": "縫合 / 縫うこと", "en": "stitches" },
+    { "jp": "切断術", "en": "amputation" }, { "jp": "内視鏡検査 (カメラで胃を見ること)", "en": "endoscopy" }, { "jp": "包帯交換", "en": "dressing change" },
+    { "jp": "トリアージ (優先順位を決めること)", "en": "triage" }, { "jp": "浣腸", "en": "enema" }, { "jp": "消毒", "en": "disinfection" }, { "jp": "リハビリ", "en": "rehabilitation" },
+    { "jp": "鎮静 (薬で落ち着かせること)", "en": "sedation" }, { "jp": "抜糸", "en": "suture removal" }, { "jp": "蘇生", "en": "resuscitation" }, { "jp": "皮膚移植", "en": "skin graft" }
+  ],
+  "sentences": [
+    { "jp": "薬を入れるために、腕に点滴をします。", "en": "We will put an _____ in your arm to give you medicine.", "answer": "iv" },
+    { "jp": "あなたの健康状態を確認するために、採血が必要です。", "en": "We need to do a _____ to check your health.", "answer": "blood draw" },
+    { "jp": "彼が息をしていないので、すぐに心肺蘇生法を開始してください。", "en": "He is not breathing, so start _____ right now.", "answer": "cpr" },
+    { "jp": "彼のお腹の悪い部分を取り除くために手術が必要です。", "en": "He needs _____ to remove the bad part of his stomach.", "answer": "surgery" },
+    { "jp": "それが癌かどうかを確認するために、小さな生検を行います。", "en": "We will do a small _____ to see if it is cancer.", "answer": "biopsy" },
+    { "jp": "彼の腎臓は働いていないため、週に3回透析に行きます。", "en": "His kidneys do not work, so he goes to _____ three times a week.", "answer": "dialysis" },
+    { "jp": "彼が呼吸を助ける機械を使うためには、挿管が必要です。", "en": "He needs _____ so the machine can help him breathe.", "answer": "intubation" },
+    { "jp": "彼はたくさんの血を失ったので、輸血が必要です。", "en": "He lost a lot of blood, so he needs a _____.", "answer": "blood transfusion" },
+    { "jp": "看護師があなたの深い切り傷の創傷ケアを行います。", "en": "The nurse will do the _____ for your deep cut.", "answer": "wound care" },
+    { "jp": "彼の心臓が止まったとき、医師は除細動を行いました。", "en": "When his heart stopped, the doctor used _____.", "answer": "defibrillation" },
+    { "jp": "痛みを止めるために、腕に注射をします。", "en": "I will give you an _____ in your arm to stop the pain.", "answer": "injection" },
+    { "jp": "インフルエンザを防ぐために、予防接種を受けてください。", "en": "Please get your _____ to stop the flu.", "answer": "vaccination" },
+    { "jp": "手術中、あなたは麻酔のおかげで眠り、痛みを感じません。", "en": "During surgery, you will sleep and feel no pain because of the _____.", "answer": "anesthesia" },
+    { "jp": "その切り傷はとても深いので、縫合が必要です。", "en": "That cut is very deep, so you need _____.", "answer": "stitches" },
+    { "jp": "彼の足はひどい感染症のため、切断術が必要でした。", "en": "His leg had a bad infection and needed an _____.", "answer": "amputation" },
+    { "jp": "医師はあなたの胃の中を見るために、内視鏡検査を行います。", "en": "The doctor will do an _____ to look inside your stomach.", "answer": "endoscopy" },
+    { "jp": "傷を清潔に保つために、毎日包帯交換を行う必要があります。", "en": "You need a daily _____ to keep the cut clean.", "answer": "dressing change" },
+    { "jp": "救急室が混んでいるとき、看護師はトリアージを行います。", "en": "When the emergency room is busy, the nurse does _____.", "answer": "triage" },
+    { "jp": "彼がトイレに行けない場合、浣腸が必要かもしれません。", "en": "If he cannot go to the bathroom, he might need an _____.", "answer": "enema" },
+    { "jp": "感染を防ぐために、傷の消毒が必要です。", "en": "We need to do a _____ of the cut to stop infection.", "answer": "disinfection" },
+    { "jp": "手術後、彼は再び歩くためにリハビリに行く必要があります。", "en": "After surgery, he must go to _____ to learn to walk again.", "answer": "rehabilitation" },
+    { "jp": "その処置は痛みを伴うため、軽い鎮静を使用します。", "en": "The test hurts, so we will use light _____.", "answer": "sedation" },
+    { "jp": "傷が治ったので、今日は抜糸を行います。", "en": "The cut is healed, so today we will do a _____.", "answer": "suture removal" },
+    { "jp": "患者が倒れた後、チームはすぐに蘇生を行いました。", "en": "After the patient fell, the team did a quick _____.", "answer": "resuscitation" },
+    { "jp": "ひどい火傷の後、彼は新しい皮膚を覆うために皮膚移植を受けました。", "en": "After the bad burn, he got a _____ to cover it.", "answer": "skin graft" }
+  ]
+}

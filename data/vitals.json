@@ -1,0 +1,38 @@
+{
+  "vocab": [
+    { "jp": "血圧", "en": "blood pressure" }, { "jp": "心拍数", "en": "heart rate" }, { "jp": "脈拍", "en": "pulse" }, { "jp": "体温", "en": "temperature" },
+    { "jp": "呼吸数", "en": "respiratory rate" }, { "jp": "酸素飽和度", "en": "oxygen saturation" }, { "jp": "血糖値", "en": "blood sugar" }, { "jp": "身長", "en": "height" },
+    { "jp": "体重", "en": "weight" }, { "jp": "BMI", "en": "body mass index" }, { "jp": "正常範囲", "en": "normal range" }, { "jp": "高血圧", "en": "high blood pressure" },
+    { "jp": "低血圧", "en": "low blood pressure" }, { "jp": "頻脈", "en": "rapid heart rate" }, { "jp": "徐脈", "en": "slow heart rate" }, { "jp": "発熱", "en": "fever" },
+    { "jp": "低体温", "en": "hypothermia" }, { "jp": "低酸素", "en": "low oxygen level" }, { "jp": "脱水", "en": "dehydration" }, { "jp": "意識レベル", "en": "level of consciousness" },
+    { "jp": "安定", "en": "stable" }, { "jp": "不安定", "en": "unstable" }, { "jp": "バイタルサイン", "en": "vital signs" }, { "jp": "測定", "en": "measurement" },
+    { "jp": "モニタリング", "en": "monitoring" }
+  ],
+  "sentences": [
+    { "jp": "血圧を測ります。", "en": "I am going to check your _____.", "answer": "blood pressure" },
+    { "jp": "心拍数は毎分80回です。", "en": "Your _____ is 80 beats per minute.", "answer": "heart rate" },
+    { "jp": "脈拍は正常です。", "en": "Your _____ is normal.", "answer": "pulse" },
+    { "jp": "体温を測りましょう。", "en": "Let's check your _____.", "answer": "temperature" },
+    { "jp": "呼吸数が少し速いです。", "en": "Your _____ is a little fast.", "answer": "respiratory rate" },
+    { "jp": "酸素飽和度は98%です。", "en": "Your _____ is 98 percent.", "answer": "oxygen saturation" },
+    { "jp": "血糖値を確認します。", "en": "We need to check your _____.", "answer": "blood sugar" },
+    { "jp": "身長を測ります。", "en": "We will measure your _____.", "answer": "height" },
+    { "jp": "体重を測ります。", "en": "We will check your _____.", "answer": "weight" },
+    { "jp": "あなたのBMIは22です。", "en": "Your _____ is 22.", "answer": "body mass index" },
+    { "jp": "結果は正常範囲です。", "en": "The result is within the _____.", "answer": "normal range" },
+    { "jp": "患者は高血圧があります。", "en": "The patient has _____.", "answer": "high blood pressure" },
+    { "jp": "患者は低血圧です。", "en": "The patient has _____.", "answer": "low blood pressure" },
+    { "jp": "患者は頻脈があります。", "en": "The patient has a _____.", "answer": "rapid heart rate" },
+    { "jp": "患者は徐脈があります。", "en": "The patient has a _____.", "answer": "slow heart rate" },
+    { "jp": "患者には発熱があります。", "en": "The patient has a _____.", "answer": "fever" },
+    { "jp": "患者は低体温です。", "en": "The patient has _____.", "answer": "hypothermia" },
+    { "jp": "患者の低酸素が起きています。", "en": "The patient's _____ is low.", "answer": "low oxygen level" },
+    { "jp": "患者は脱水しています。", "en": "The patient has _____.", "answer": "dehydration" },
+    { "jp": "意識レベルを確認してください。", "en": "Please check the patient's _____.", "answer": "level of consciousness" },
+    { "jp": "患者の状態は安定です。", "en": "The patient is _____.", "answer": "stable" },
+    { "jp": "患者の状態は不安定です。", "en": "The patient is _____.", "answer": "unstable" },
+    { "jp": "バイタルサインをもう一度測ります。", "en": "Let's check the _____ again.", "answer": "vital signs" },
+    { "jp": "正確な測定が必要です。", "en": "An accurate _____ is important.", "answer": "measurement" },
+    { "jp": "患者をモニタリングしています。", "en": "We are _____ the patient.", "answer": "monitoring" }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "vocab": [
+    { "jp": "聴診器", "en": "stethoscope" }, { "jp": "車椅子", "en": "wheelchair" }, { "jp": "松葉杖 (まつばづえ)", "en": "crutches" },
+    { "jp": "人工呼吸器", "en": "ventilator" }, { "jp": "輸液ポンプ (点滴の機械)", "en": "iv pump" }, { "jp": "酸素マスク", "en": "oxygen mask" },
+    { "jp": "鼻カニューレ (鼻のチューブ)", "en": "nasal cannula" }, { "jp": "血圧計の腕帯", "en": "blood pressure cuff" },
+    { "jp": "パルスオキシメーター", "en": "pulse oximeter" }, { "jp": "除細動器", "en": "defibrillator" }, { "jp": "注射器", "en": "syringe" },
+    { "jp": "針", "en": "needle" }, { "jp": "包帯", "en": "bandage" }, { "jp": "ガーゼ", "en": "gauze" }, { "jp": "メス", "en": "scalpel" },
+    { "jp": "ピンセット", "en": "tweezers" }, { "jp": "体温計", "en": "thermometer" }, { "jp": "差し込み便器", "en": "bedpan" },
+    { "jp": "カテーテル", "en": "catheter" }, { "jp": "歩行器", "en": "walker" }, { "jp": "杖 (つえ)", "en": "cane" },
+    { "jp": "副子 (添え木)", "en": "splint" }, { "jp": "ギプス", "en": "cast" }, { "jp": "吊り包帯 (三角巾)", "en": "sling" },
+    { "jp": "ストレッチャー", "en": "stretcher" }
+  ],
+  "sentences": [
+    { "jp": "医師はあなたの心臓の音を聞くために聴診器を使用します。", "en": "The doctor uses a _____ to listen to your heart.", "answer": "stethoscope" },
+    { "jp": "歩けないなら、車椅子を持ってきましょう。", "en": "If you cannot walk, I will bring a _____.", "answer": "wheelchair" },
+    { "jp": "彼は足を骨折したので、歩くために松葉杖を使わなければなりません。", "en": "He must use _____ to walk.", "answer": "crutches" },
+    { "jp": "彼は自分で息ができないため、人工呼吸器に繋がれています。", "en": "He is on a _____.", "answer": "ventilator" },
+    { "jp": "輸液ポンプが鳴っているのは、薬が終わったからです。", "en": "The _____ is beeping.", "answer": "iv pump" },
+    { "jp": "呼吸を助けるために、顔に酸素マスクを着けます。", "en": "We will put an _____ over your face.", "answer": "oxygen mask" },
+    { "jp": "鼻に鼻カニューレを入れて少量の酸素を送ります。", "en": "We will put a _____ in your nose.", "answer": "nasal cannula" },
+    { "jp": "腕に血圧計の腕帯を巻いてください。少しきつくなります。", "en": "Put the _____ on your arm.", "answer": "blood pressure cuff" },
+    { "jp": "酸素レベルを測るために、指にパルスオキシメーターを挟みます。", "en": "I will put the _____ on your finger.", "answer": "pulse oximeter" },
+    { "jp": "彼の心臓が止まったとき、彼らは彼を救うために除細動器を使用しました。", "en": "They used a _____ to save him.", "answer": "defibrillator" },
+    { "jp": "看護師は薬を注射器に吸い上げました。", "en": "The nurse pulled the medicine into the _____.", "answer": "syringe" },
+    { "jp": "針が皮膚に入るとき、少しチクッとします。", "en": "You will feel a small pinch from the _____.", "answer": "needle" },
+    { "jp": "血を止めるために、切り傷に包帯を巻きます。", "en": "We will put a _____ on your cut.", "answer": "bandage" },
+    { "jp": "傷口をきれいに拭くために、ガーゼが少し必要です。", "en": "I need some _____.", "answer": "gauze" },
+    { "jp": "手術中、医師はメスで皮膚を切ります。", "en": "The doctor cuts the skin with a _____.", "answer": "scalpel" },
+    { "jp": "指に刺さった木の破片を抜くためにピンセットが必要です。", "en": "I need _____ to pull it out.", "answer": "tweezers" },
+    { "jp": "熱があるか確認するために体温計を使います。", "en": "I will use a _____ to check your fever.", "answer": "thermometer" },
+    { "jp": "彼女はベッドから起き上がれないので、トイレに差し込み便器が必要です。", "en": "She needs a _____ for the toilet.", "answer": "bedpan" },
+    { "jp": "尿を出すのを助けるために、チューブであるカテーテルを挿入します。", "en": "We will insert a _____.", "answer": "catheter" },
+    { "jp": "その老人は転ばないように歩行器を使って歩きます。", "en": "The old man uses a _____ to walk.", "answer": "walker" },
+    { "jp": "彼は足が弱いので、歩くときに杖を使います。", "en": "He uses a _____ when he walks.", "answer": "cane" },
+    { "jp": "指が動かないように、硬い副子で固定します。", "en": "We will put a hard _____ on your finger.", "answer": "splint" },
+    { "jp": "腕の骨折が治るまで、彼は6週間ギプスを着けます。", "en": "He will wear a _____ for six weeks.", "answer": "cast" },
+    { "jp": "休ませるために、腕を吊り包帯に入れて吊るします。", "en": "Keep your arm in a _____.", "answer": "sling" },
+    { "jp": "患者を救急車まで運ぶためにストレッチャーが必要です。", "en": "We need a _____ to carry the patient.", "answer": "stretcher" }
+  ]
+}

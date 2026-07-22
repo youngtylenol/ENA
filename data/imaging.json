@@ -1,0 +1,33 @@
+{
+  "vocab": [
+    { "jp": "レントゲン", "en": "x-ray" }, { "jp": "スキャン", "en": "scan" }, { "jp": "画像", "en": "image" },
+    { "jp": "MRI", "en": "mri" }, { "jp": "CT", "en": "ct" }, { "jp": "超音波", "en": "ultrasound" },
+    { "jp": "フィルム", "en": "film" }, { "jp": "技師", "en": "technician" }, { "jp": "放射線科医", "en": "radiologist" },
+    { "jp": "撮影像", "en": "view" }, { "jp": "造影剤", "en": "contrast" }, { "jp": "ポータブル", "en": "portable" },
+    { "jp": "断面", "en": "slice" }, { "jp": "放射線撮影", "en": "radiography" }, { "jp": "マンモグラフィ", "en": "mammography" },
+    { "jp": "透視検査", "en": "fluoroscopy" }, { "jp": "骨密度", "en": "bone density" }, { "jp": "血管造影", "en": "angiography" },
+    { "jp": "PET検査", "en": "pet scan" }, { "jp": "アーチファクト", "en": "artifact" }
+  ],
+  "sentences": [
+    { "jp": "骨折を確認するために、レントゲンを撮りましょう。", "en": "Let's take an _____.", "answer": "x-ray" },
+    { "jp": "脳のスキャンの結果が届きました。", "en": "The results of the brain _____ are here.", "answer": "scan" },
+    { "jp": "モニターに鮮明な画像が映っています。", "en": "We can see a clear _____ on the monitor.", "answer": "image" },
+    { "jp": "彼は閉所恐怖症なので、MRIを受けるのが難しいです。", "en": "It is hard for him to get an _____.", "answer": "mri" },
+    { "jp": "腹部の内部を見るために、CTが必要です。", "en": "We need a _____.", "answer": "ct" },
+    { "jp": "お腹の中の赤ちゃんを見るために、超音波を行います。", "en": "We will do an _____.", "answer": "ultrasound" },
+    { "jp": "昔はデジタルではなくフィルムを使っていました。", "en": "In the past, we used _____.", "answer": "film" },
+    { "jp": "放射線技師が機械を操作します。", "en": "The radiology _____ will operate the machine.", "answer": "technician" },
+    { "jp": "放射線科医が画像を読んでレポートを作成します。", "en": "The _____ will read the images.", "answer": "radiologist" },
+    { "jp": "この撮影像からは、肺がよく見えます。", "en": "The lungs are easy to see from this _____.", "answer": "view" },
+    { "jp": "より鮮明に見るために、静脈に造影剤を注入します。", "en": "We will inject _____.", "answer": "contrast" },
+    { "jp": "患者がベッドから動けないので、ポータブル機器が必要です。", "en": "We need a _____ machine.", "answer": "portable" },
+    { "jp": "この画像の断面は5ミリ間隔です。", "en": "The _____ on this image are five millimeters apart.", "answer": "slice" },
+    { "jp": "胸部の放射線撮影は健康診断の一部です。", "en": "Chest _____ is part of a health checkup.", "answer": "radiography" },
+    { "jp": "40歳以上の女性は毎年マンモグラフィを受けるべきです。", "en": "Women over 40 should get a _____.", "answer": "mammography" },
+    { "jp": "医師は透視検査で動きのある体内をリアルタイムで見ます。", "en": "The doctor uses _____.", "answer": "fluoroscopy" },
+    { "jp": "骨折リスクを知るために骨密度検査をします。", "en": "We will do a _____ test.", "answer": "bone density" },
+    { "jp": "血管の状態を確認するために血管造影を行います。", "en": "We will do an _____.", "answer": "angiography" },
+    { "jp": "癌の広がりを見るためにPET検査が必要です。", "en": "A _____ is needed.", "answer": "pet scan" },
+    { "jp": "画像上の白い点のようなアーチファクトを無視してください。", "en": "Please ignore the _____ on the image.", "answer": "artifact" }
+  ]
+}
